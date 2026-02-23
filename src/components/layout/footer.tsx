@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 
 const footerLinks = {
@@ -37,9 +38,12 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-teal rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">T</span>
-              </div>
+              <Image
+                src="/logo-mark.svg"
+                alt="TestWell"
+                width={24}
+                height={29}
+              />
               <span className="text-xl font-semibold tracking-tight text-white">
                 Test<span className="text-teal">Well</span>
               </span>

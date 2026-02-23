@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -35,9 +36,13 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 bg-gradient-to-br from-teal to-teal/80 rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-              <span className="text-white font-bold text-base">T</span>
-            </div>
+            <Image
+              src="/logo-mark.svg"
+              alt="TestWell"
+              width={28}
+              height={34}
+              className="group-hover:scale-105 transition-transform"
+            />
             <span className="text-xl font-bold tracking-tight text-foreground">
               Test<span className="text-teal">Well</span>
             </span>
