@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
@@ -55,7 +56,8 @@ function getTestById(id: string): LabTest | undefined {
 }
 
 export default function PricingPage() {
-  const [selectedTestIds, setSelectedTestIds] = useState<string[]>([]);
+  const router = useRouter();
+  const [selectedTestIds, setSelectedTestIds] = useState<string[]>([tests[0].id]);
 
   const selectedTests = useMemo(
     () => tests.filter((t) => selectedTestIds.includes(t.id)),
@@ -279,12 +281,18 @@ export default function PricingPage() {
                 <div className="text-center">
                   <Button
                     className="bg-teal text-white hover:bg-teal/90 rounded-xl h-12 px-8 font-semibold shadow-md shadow-teal/15"
-                    asChild
+                    onClick={() => {
+                      toast.success(
+                        `${selectedTests.length} test${selectedTests.length > 1 ? "s" : ""} added to cart`,
+                        {
+                          description: `$${totals.testwell.toFixed(2)} total`,
+                        }
+                      );
+                      router.push("/checkout");
+                    }}
                   >
-                    <Link href="/tests">
-                      Order These Tests{" "}
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
+                    Order These Tests{" "}
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
               </motion.div>
