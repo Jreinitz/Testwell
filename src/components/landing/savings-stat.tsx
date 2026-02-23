@@ -75,17 +75,17 @@ export function SavingsStat() {
               A fraction of the cost.
             </p>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-5 flex-wrap">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <div className="w-3 h-3 bg-slate-200 rounded-sm" />
+                <div className="w-3 h-1.5 bg-slate-200 rounded-full" />
                 <span>Hospital</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <div className="w-3 h-3 bg-slate-400 rounded-sm" />
-                <span>Quest/Labcorp Direct</span>
+                <div className="w-3 h-1.5 bg-slate-400/60 rounded-full" />
+                <span>Quest / Labcorp</span>
               </div>
               <div className="flex items-center gap-2 text-sm font-semibold text-teal">
-                <div className="w-3 h-3 bg-teal rounded-sm" />
+                <div className="w-3 h-2 bg-teal rounded-full" />
                 <span>TestWell</span>
               </div>
             </div>
@@ -117,14 +117,16 @@ export function SavingsStat() {
                     -{item.savings}%
                   </div>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <div className="flex items-center gap-3">
+                    <span className="text-[11px] text-muted-foreground w-20 shrink-0 text-right">Hospital</span>
                     <div className="flex-1 bg-slate-200/80 rounded-full h-2.5" />
-                    <span className="text-xs text-muted-foreground line-through w-16 text-right font-medium">
+                    <span className="text-xs text-muted-foreground line-through w-14 text-right font-medium shrink-0">
                       ${item.hospital}+
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
+                    <span className="text-[11px] text-muted-foreground w-20 shrink-0 text-right">Quest Direct</span>
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${(item.quest / item.hospital) * 100}%` }}
@@ -132,11 +134,12 @@ export function SavingsStat() {
                       transition={{ delay: 0.5 + i * 0.1, duration: 0.8, ease: "easeOut" }}
                       className="bg-slate-400/60 rounded-full h-2.5"
                     />
-                    <span className="text-xs text-muted-foreground line-through w-16 text-right font-medium">
+                    <span className="text-xs text-muted-foreground line-through w-14 text-right font-medium shrink-0">
                       ${item.quest}
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
+                    <span className="text-[11px] font-semibold text-teal w-20 shrink-0 text-right">TestWell</span>
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${(item.tw / item.hospital) * 100}%` }}
@@ -144,7 +147,7 @@ export function SavingsStat() {
                       transition={{ delay: 0.6 + i * 0.1, duration: 0.8, ease: "easeOut" }}
                       className="bg-gradient-to-r from-teal to-teal/80 rounded-full h-3 shadow-sm shadow-teal/20"
                     />
-                    <span className="text-sm font-bold text-teal w-16 text-right">
+                    <span className="text-sm font-bold text-teal w-14 text-right shrink-0">
                       ${item.tw}
                     </span>
                   </div>
