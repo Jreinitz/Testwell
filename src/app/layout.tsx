@@ -16,9 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TestWell — Affordable Lab Tests. No Doctor Visit Required.",
+  title: {
+    default: "TestWell — Affordable Lab Tests. No Doctor Visit Required.",
+    template: "%s | TestWell",
+  },
   description:
-    "Order affordable, physician-reviewed blood tests online. Results in 1-3 days at Quest Diagnostics and Labcorp locations across Florida and Texas. Save up to 80% vs hospital pricing.",
+    "Order affordable, physician-reviewed blood tests online. Results in 1–3 days at Quest Diagnostics and Labcorp locations across Florida and Texas. Save up to 80% vs hospital pricing.",
   keywords: [
     "lab tests",
     "blood tests",
@@ -29,13 +32,31 @@ export const metadata: Metadata = {
     "Quest Diagnostics",
     "Labcorp",
     "DTC lab testing",
+    "blood work online",
+    "cheap lab tests",
   ],
+  metadataBase: new URL("https://test-well.com"),
   openGraph: {
     title: "TestWell — Affordable Lab Tests. No Doctor Visit Required.",
     description:
-      "Save up to 80% on physician-reviewed blood tests. Results in days, not weeks.",
+      "Save up to 80% on physician-reviewed blood tests at Quest & Labcorp. No doctor visit, no insurance needed. Results in days, not weeks.",
     type: "website",
     url: "https://test-well.com",
+    siteName: "TestWell",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TestWell — Affordable Lab Tests. No Doctor Visit Required.",
+    description:
+      "Save up to 80% on physician-reviewed blood tests at Quest & Labcorp. No doctor visit needed.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://test-well.com",
   },
 };
 
