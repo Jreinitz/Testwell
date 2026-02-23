@@ -178,46 +178,8 @@ export default function PricingPage() {
                 transition={{ duration: 0.4 }}
                 className="max-w-4xl mx-auto"
               >
-                {/* Summary Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6 mb-8">
-                  <div className="bg-slate-50 rounded-2xl border border-border/30 p-5 lg:p-7 text-center">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">
-                      Hospital
-                    </p>
-                    <p className="text-2xl lg:text-3xl font-bold text-muted-foreground line-through">
-                      ${totals.hospital}+
-                    </p>
-                  </div>
-                  <div className="bg-slate-50 rounded-2xl border border-border/30 p-5 lg:p-7 text-center">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">
-                      Quest / Labcorp Direct
-                    </p>
-                    <p className="text-2xl lg:text-3xl font-bold text-muted-foreground line-through">
-                      ${totals.questDirect}
-                    </p>
-                  </div>
-                  <div className="bg-teal/5 rounded-2xl border border-teal/20 p-5 lg:p-7 text-center">
-                    <p className="text-xs text-teal uppercase tracking-wider font-medium mb-2">
-                      TestWell
-                    </p>
-                    <p className="text-2xl lg:text-3xl font-bold text-teal">
-                      ${totals.testwell.toFixed(2)}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Savings badge */}
-                <div className="text-center mb-8">
-                  <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-sm font-bold px-5 py-2.5 rounded-full border border-emerald-100">
-                    <TrendingDown className="h-4 w-4" />
-                    You save $
-                    {(totals.hospital - totals.testwell).toFixed(2)} vs.
-                    hospital pricing
-                  </div>
-                </div>
-
                 {/* Line items */}
-                <div className="bg-white rounded-2xl border border-border/30 overflow-hidden mb-8">
+                <div className="bg-white rounded-2xl border border-border/30 overflow-hidden mb-0">
                   <div className="hidden sm:grid grid-cols-[1fr_auto_auto_auto] gap-4 px-6 py-3 bg-slate-50 border-b border-border/20 text-xs text-muted-foreground uppercase tracking-wider">
                     <span>Test</span>
                     <span className="text-right w-20">Hospital</span>
@@ -232,7 +194,7 @@ export default function PricingPage() {
                       initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: i * 0.04 }}
-                      className="border-b border-border/10 last:border-0"
+                      className="border-b border-border/10"
                     >
                       {/* Desktop row */}
                       <div className="hidden sm:grid grid-cols-[1fr_auto_auto_auto] gap-4 px-6 py-4 items-center">
@@ -276,6 +238,43 @@ export default function PricingPage() {
                       </div>
                     </motion.div>
                   ))}
+
+                  {/* Totals row — desktop */}
+                  <div className="hidden sm:grid grid-cols-[1fr_auto_auto_auto] gap-4 px-6 py-4 bg-slate-50/70 border-t border-border/30 items-center">
+                    <span className="text-sm font-bold text-foreground pl-8">
+                      Total ({selectedTests.length} test{selectedTests.length > 1 ? "s" : ""})
+                    </span>
+                    <span className="text-sm font-bold text-muted-foreground line-through text-right w-20">
+                      ${totals.hospital}+
+                    </span>
+                    <span className="text-sm font-bold text-muted-foreground line-through text-right w-24">
+                      ${totals.questDirect}
+                    </span>
+                    <span className="text-base font-bold text-teal text-right w-20">
+                      ${totals.testwell.toFixed(2)}
+                    </span>
+                  </div>
+                  {/* Totals row — mobile */}
+                  <div className="sm:hidden flex items-center justify-between px-4 py-4 bg-slate-50/70 border-t border-border/30">
+                    <span className="text-sm font-bold text-foreground">
+                      Total ({selectedTests.length} test{selectedTests.length > 1 ? "s" : ""})
+                    </span>
+                    <span className="text-base font-bold text-teal">
+                      ${totals.testwell.toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Savings badges */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 my-8">
+                  <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-sm font-bold px-5 py-2.5 rounded-full border border-emerald-100">
+                    <TrendingDown className="h-4 w-4" />
+                    Save ${(totals.hospital - totals.testwell).toFixed(2)} vs. hospital
+                  </div>
+                  <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-sm font-bold px-5 py-2.5 rounded-full border border-emerald-100">
+                    <TrendingDown className="h-4 w-4" />
+                    Save ${(totals.questDirect - totals.testwell).toFixed(2)} vs. Quest &amp; Labcorp
+                  </div>
                 </div>
 
                 <div className="text-center">
