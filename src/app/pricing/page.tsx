@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   FlaskConical,
 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { tests, getSavingsPercent, type LabTest } from "@/lib/data/tests";
@@ -176,7 +177,7 @@ export default function PricingPage() {
                 className="max-w-4xl mx-auto"
               >
                 {/* Summary Cards */}
-                <div className="grid grid-cols-3 gap-4 lg:gap-6 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6 mb-8">
                   <div className="bg-slate-50 rounded-2xl border border-border/30 p-5 lg:p-7 text-center">
                     <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">
                       Hospital
@@ -215,7 +216,7 @@ export default function PricingPage() {
 
                 {/* Line items */}
                 <div className="bg-white rounded-2xl border border-border/30 overflow-hidden mb-8">
-                  <div className="grid grid-cols-[1fr_auto_auto_auto] gap-4 px-6 py-3 bg-slate-50 border-b border-border/20 text-xs text-muted-foreground uppercase tracking-wider">
+                  <div className="hidden sm:grid grid-cols-[1fr_auto_auto_auto] gap-4 px-6 py-3 bg-slate-50 border-b border-border/20 text-xs text-muted-foreground uppercase tracking-wider">
                     <span>Test</span>
                     <span className="text-right w-20">Hospital</span>
                     <span className="text-right w-24">Quest Direct</span>
@@ -229,28 +230,48 @@ export default function PricingPage() {
                       initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: i * 0.04 }}
-                      className="grid grid-cols-[1fr_auto_auto_auto] gap-4 px-6 py-4 border-b border-border/10 last:border-0 items-center"
+                      className="border-b border-border/10 last:border-0"
                     >
-                      <div className="flex items-center gap-3">
-                        <button
-                          onClick={() => toggleTest(test.id)}
-                          className="text-muted-foreground hover:text-red-500 transition-colors"
-                        >
-                          <X className="h-3.5 w-3.5" />
-                        </button>
-                        <span className="text-sm font-medium text-foreground">
-                          {test.name}
+                      {/* Desktop row */}
+                      <div className="hidden sm:grid grid-cols-[1fr_auto_auto_auto] gap-4 px-6 py-4 items-center">
+                        <div className="flex items-center gap-3">
+                          <button
+                            onClick={() => toggleTest(test.id)}
+                            className="text-muted-foreground hover:text-red-500 transition-colors"
+                          >
+                            <X className="h-3.5 w-3.5" />
+                          </button>
+                          <span className="text-sm font-medium text-foreground">
+                            {test.name}
+                          </span>
+                        </div>
+                        <span className="text-sm text-muted-foreground line-through text-right w-20">
+                          ${test.hospitalPrice}+
+                        </span>
+                        <span className="text-sm text-muted-foreground line-through text-right w-24">
+                          ${test.questDirectPrice}
+                        </span>
+                        <span className="text-sm font-bold text-teal text-right w-20">
+                          ${test.price.toFixed(2)}
                         </span>
                       </div>
-                      <span className="text-sm text-muted-foreground line-through text-right w-20">
-                        ${test.hospitalPrice}+
-                      </span>
-                      <span className="text-sm text-muted-foreground line-through text-right w-24">
-                        ${test.questDirectPrice}
-                      </span>
-                      <span className="text-sm font-bold text-teal text-right w-20">
-                        ${test.price.toFixed(2)}
-                      </span>
+                      {/* Mobile row */}
+                      <div className="sm:hidden flex items-center justify-between px-4 py-3.5">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <button
+                            onClick={() => toggleTest(test.id)}
+                            className="text-muted-foreground hover:text-red-500 transition-colors shrink-0"
+                          >
+                            <X className="h-3.5 w-3.5" />
+                          </button>
+                          <span className="text-sm font-medium text-foreground truncate">
+                            {test.name}
+                          </span>
+                        </div>
+                        <span className="text-sm font-bold text-teal shrink-0 ml-3">
+                          ${test.price.toFixed(2)}
+                        </span>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
@@ -440,7 +461,15 @@ export default function PricingPage() {
                         {savingsVsHospital}% vs hospital
                       </div>
                     </div>
-                    <Button className="w-full bg-teal text-white hover:bg-teal/90 rounded-xl h-11 font-medium">
+                    <Button
+                      className="w-full bg-teal text-white hover:bg-teal/90 rounded-xl h-11 font-medium"
+                      onClick={() =>
+                        toast.success(`${bundle.name} bundle added to cart`, {
+                          description: `$${bundle.bundlePrice.toFixed(2)} — ${bundleTests.length} tests`,
+                          action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
+                        })
+                      }
+                    >
                       Add Bundle to Cart
                     </Button>
                   </div>
@@ -470,11 +499,11 @@ export default function PricingPage() {
           </motion.div>
 
           <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-border/30 overflow-hidden">
-            {/* Header */}
-            <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 px-6 py-3 bg-slate-50 border-b border-border/20 text-xs text-muted-foreground uppercase tracking-wider">
+            {/* Header — desktop */}
+            <div className="hidden sm:grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 px-6 py-3 bg-slate-50 border-b border-border/20 text-xs text-muted-foreground uppercase tracking-wider">
               <span>Test</span>
               <span className="text-right w-20">Hospital</span>
-              <span className="text-right w-20 hidden sm:block">Direct</span>
+              <span className="text-right w-20 hidden md:block">Direct</span>
               <span className="text-right w-20 text-teal font-medium">
                 TestWell
               </span>
@@ -489,9 +518,10 @@ export default function PricingPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: i * 0.03 }}
               >
+                {/* Desktop row */}
                 <Link
                   href={`/tests/${test.slug}`}
-                  className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 px-6 py-4 border-b border-border/10 last:border-0 items-center hover:bg-slate-50/50 transition-colors group"
+                  className="hidden sm:grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 px-6 py-4 border-b border-border/10 last:border-0 items-center hover:bg-slate-50/50 transition-colors group"
                 >
                   <div>
                     <span className="text-sm font-medium text-foreground group-hover:text-teal transition-colors">
@@ -504,7 +534,7 @@ export default function PricingPage() {
                   <span className="text-sm text-muted-foreground line-through text-right w-20">
                     ${test.hospitalPrice}+
                   </span>
-                  <span className="text-sm text-muted-foreground line-through text-right w-20 hidden sm:block">
+                  <span className="text-sm text-muted-foreground line-through text-right w-20 hidden md:block">
                     ${test.questDirectPrice}
                   </span>
                   <span className="text-sm font-bold text-teal text-right w-20">
@@ -513,6 +543,26 @@ export default function PricingPage() {
                   <span className="text-xs font-bold text-emerald-600 text-right w-16">
                     -{getSavingsPercent(test)}%
                   </span>
+                </Link>
+                {/* Mobile row */}
+                <Link
+                  href={`/tests/${test.slug}`}
+                  className="sm:hidden flex items-center justify-between px-4 py-3.5 border-b border-border/10 last:border-0 active:bg-slate-50/50 transition-colors group"
+                >
+                  <div className="min-w-0">
+                    <span className="text-sm font-medium text-foreground group-active:text-teal transition-colors block truncate">
+                      {test.name}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{test.category}</span>
+                  </div>
+                  <div className="text-right shrink-0 ml-3">
+                    <span className="text-sm font-bold text-teal block">
+                      ${test.price.toFixed(2)}
+                    </span>
+                    <span className="text-xs font-bold text-emerald-600">
+                      -{getSavingsPercent(test)}%
+                    </span>
+                  </div>
                 </Link>
               </motion.div>
             ))}

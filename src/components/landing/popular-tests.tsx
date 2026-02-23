@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Droplets, ShoppingCart } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { tests, getSavingsPercent } from "@/lib/data/tests";
@@ -118,6 +119,12 @@ export function PopularTests() {
                   </Button>
                   <Button
                     className="flex-1 rounded-xl h-11 font-medium bg-teal text-white hover:bg-teal/90 shadow-sm shadow-teal/15"
+                    onClick={() =>
+                      toast.success(`${test.name} added to cart`, {
+                        description: `$${test.price.toFixed(2)}`,
+                        action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
+                      })
+                    }
                   >
                     <ShoppingCart className="mr-1.5 h-3.5 w-3.5" />
                     Add to Cart

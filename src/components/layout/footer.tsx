@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
+
+const authPaths = ["/login", "/signup"];
 
 const footerLinks = {
   Tests: [
@@ -13,8 +18,8 @@ const footerLinks = {
   Company: [
     { href: "/how-it-works", label: "How It Works" },
     { href: "/pricing", label: "Pricing" },
-    { href: "#", label: "About Us" },
-    { href: "#", label: "Contact" },
+    { href: "/about", label: "About Us" },
+    { href: "/contact", label: "Contact" },
   ],
   Support: [
     { href: "/#faq", label: "FAQ" },
@@ -30,6 +35,9 @@ const footerLinks = {
 };
 
 export function Footer() {
+  const pathname = usePathname();
+  if (authPaths.includes(pathname)) return null;
+
   return (
     <footer className="bg-slate-950 text-slate-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">

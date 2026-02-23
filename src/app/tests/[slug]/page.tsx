@@ -16,6 +16,7 @@ import {
   AlertCircle,
   TrendingDown,
 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -115,8 +116,8 @@ export default function TestDetailPage({
                 </h1>
 
                 {/* Price Comparison Bar */}
-                <div className="flex flex-wrap items-center gap-4 p-5 bg-white rounded-2xl border border-border/30 mb-10">
-                  <div className="flex items-center gap-6 flex-wrap">
+                <div className="flex flex-wrap items-center gap-4 p-4 sm:p-5 bg-white rounded-2xl border border-border/30 mb-10">
+                  <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
                     <div>
                       <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
                         Hospital
@@ -161,7 +162,7 @@ export default function TestDetailPage({
                 </div>
 
                 {/* Test Specs */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 mb-10">
                   {[
                     {
                       icon: Droplets,
@@ -295,7 +296,15 @@ export default function TestDetailPage({
                     ))}
                   </div>
 
-                  <Button className="w-full bg-[#e84c3d] text-white hover:bg-[#d4443a] rounded-xl h-12 font-semibold text-base shadow-md shadow-red-500/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300">
+                  <Button
+                    className="w-full bg-[#e84c3d] text-white hover:bg-[#d4443a] rounded-xl h-12 font-semibold text-base shadow-md shadow-red-500/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
+                    onClick={() =>
+                      toast.success(`${test.name} added to cart`, {
+                        description: `$${test.price.toFixed(2)}`,
+                        action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
+                      })
+                    }
+                  >
                     Add to Cart — ${test.price.toFixed(2)}
                   </Button>
 

@@ -205,3 +205,17 @@
 .scroll-progress {
   transform-origin: left;
 }
+
+/* Smooth focus ring for all interactive elements */
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+  transition: outline-offset 0.15s ease;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(13, 148, 136, 0.15);
+  color: inherit;
+}

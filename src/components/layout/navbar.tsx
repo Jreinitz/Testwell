@@ -12,7 +12,10 @@ const navLinks = [
   { href: "/tests", label: "Tests" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/about", label: "About" },
 ];
+
+const authPaths = ["/login", "/signup"];
 
 export function Navbar() {
   const pathname = usePathname();
@@ -23,6 +26,8 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (authPaths.includes(pathname)) return null;
 
   return (
     <header

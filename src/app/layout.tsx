@@ -4,6 +4,9 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
+import { PageTransition } from "@/components/layout/page-transition";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -72,8 +75,21 @@ export default function RootLayout({
       >
         <ScrollProgress />
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
+        <ScrollToTop />
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              background: "white",
+              border: "1px solid hsl(var(--border))",
+              borderRadius: "0.75rem",
+            },
+          }}
+        />
       </body>
     </html>
   );
