@@ -126,7 +126,7 @@ const steps = [
     step: "01",
     title: "Choose your tests",
     description:
-      "Browse our catalog of physician-approved lab tests. No doctor visit, no referral — just pick what you need.",
+      "Pick from 100+ physician-approved tests. No appointment, no referral, no insurance needed.",
     highlights: [
       "100+ tests available",
       "No referral needed",
@@ -139,7 +139,7 @@ const steps = [
     step: "02",
     title: "Visit a lab near you",
     description:
-      "Walk into any Quest Diagnostics or Labcorp location. Most visits take under 15 minutes.",
+      "Walk into any Quest or Labcorp. No appointment — most visits take under 15 minutes.",
     highlights: [
       "4,000+ locations",
       "No appointment needed",
@@ -152,7 +152,7 @@ const steps = [
     step: "03",
     title: "Get your results",
     description:
-      "Access physician-reviewed results through your secure portal in 1–3 business days.",
+      "Physician-reviewed results delivered to your secure portal in 1–3 business days.",
     highlights: ["1–3 business days", "Physician reviewed", "Secure portal"],
     gradient: "from-teal/10 to-emerald-50/50",
     Visual: VisualGetResults,
@@ -174,12 +174,11 @@ export function HowItWorks() {
             You&apos;re in Control
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-5">
-            Order your labs in{" "}
-            <span className="text-gradient italic">three steps</span>
+            Three steps.{" "}
+            <span className="text-gradient italic">That&apos;s it.</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            No doctor visit. No appointments. No referrals. Just you and the
-            tests you want.
+            No doctor visit. No referral. No waiting room.
           </p>
         </motion.div>
 

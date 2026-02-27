@@ -290,7 +290,7 @@ export function Hero() {
                   animate={{ y: 0 }}
                   transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  Skip the doctor.
+                  Same labs. Same tests.
                 </motion.span>
               </span>
               <span className="block overflow-hidden">
@@ -300,7 +300,7 @@ export function Hero() {
                   animate={{ y: 0 }}
                   transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  Order it yourself.
+                  80% less.
                 </motion.span>
               </span>
             </h1>
@@ -312,11 +312,10 @@ export function Hero() {
               transition={{ delay: 0.7, duration: 0.7 }}
               className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-lg"
             >
-              Don&apos;t wait weeks for a doctor&apos;s appointment just to order routine
-              bloodwork. Pick the tests you want, walk into Quest or Labcorp,
-              and pay{" "}
-              <span className="font-semibold text-foreground">up to 80% less</span>{" "}
-              than you would through a hospital.
+              Order lab tests online, walk into Quest or Labcorp, and get
+              physician-reviewed results in days — without a doctor&apos;s visit,
+              a referral, or a{" "}
+              <span className="font-semibold text-foreground">surprise bill</span>.
             </motion.p>
 
             {/* Buttons */}
@@ -348,7 +347,7 @@ export function Hero() {
             {/* Trust signals — staggered fade */}
             <div className="flex items-center gap-6 sm:gap-8 text-sm">
               {[
-                "No doctor visit needed",
+                "No referral needed",
                 "Physician reviewed",
                 "No insurance required",
               ].map((text, i) => (

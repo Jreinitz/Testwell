@@ -53,12 +53,11 @@ export function ValueProps() {
             Why TestWell
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
-            The clear choice for{" "}
-            <span className="text-gradient italic">modern lab testing</span>
+            How we{" "}
+            <span className="text-gradient italic">compare</span>
           </h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-            See how we compare against hospital labs and other
-            direct-to-consumer testing services.
+            Everything you&apos;d get from a hospital or another testing service — without the markup or the hassle.
           </p>
         </motion.div>
 

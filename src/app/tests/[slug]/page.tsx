@@ -25,6 +25,7 @@ import {
   getSavingsPercent,
   tests,
 } from "@/lib/data/tests";
+import { useCart } from "@/lib/cart/cart-context";
 
 export default function TestDetailPage({
   params,
@@ -38,6 +39,7 @@ export default function TestDetailPage({
     notFound();
   }
 
+  const { addItem, isInCart } = useCart();
   const related = getRelatedTests(test, 3);
   const savings = getSavingsPercent(test);
 
@@ -297,15 +299,23 @@ export default function TestDetailPage({
                   </div>
 
                   <Button
-                    className="w-full bg-[#e84c3d] text-white hover:bg-[#d4443a] rounded-xl h-12 font-semibold text-base shadow-md shadow-red-500/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
-                    onClick={() =>
-                      toast.success(`${test.name} added to cart`, {
-                        description: `$${test.price.toFixed(2)}`,
-                        action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
-                      })
-                    }
+                    className={`w-full rounded-xl h-12 font-semibold text-base shadow-md transition-all duration-300 ${
+                      isInCart(test.id)
+                        ? "bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-500/15"
+                        : "bg-[#e84c3d] text-white hover:bg-[#d4443a] shadow-red-500/15 hover:shadow-lg hover:shadow-red-500/20"
+                    }`}
+                    onClick={() => {
+                      if (!isInCart(test.id)) {
+                        addItem({ testId: test.id, name: test.name, price: test.price, slug: test.slug });
+                        toast.success(`${test.name} added to cart`, {
+                          description: `$${test.price.toFixed(2)}`,
+                          action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
+                        });
+                      }
+                    }}
+                    disabled={isInCart(test.id)}
                   >
-                    Add to Cart — ${test.price.toFixed(2)}
+                    {isInCart(test.id) ? "Added to Cart" : `Add to Cart — $${test.price.toFixed(2)}`}
                   </Button>
 
                   <p className="text-xs text-muted-foreground text-center mt-4">

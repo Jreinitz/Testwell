@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 
-const authPaths = ["/login", "/signup"];
+const hiddenPaths = ["/login", "/signup"];
 
 const footerLinks = {
   Tests: [
@@ -36,7 +36,8 @@ const footerLinks = {
 
 export function Footer() {
   const pathname = usePathname();
-  if (authPaths.includes(pathname)) return null;
+  if (hiddenPaths.includes(pathname) || pathname.startsWith("/provider") || pathname.startsWith("/admin"))
+    return null;
 
   return (
     <footer className="bg-slate-950 text-slate-300">

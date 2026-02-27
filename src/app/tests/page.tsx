@@ -13,9 +13,11 @@ import {
   Clock,
   Droplets,
   ShoppingCart,
+  Check,
   X,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useCart } from "@/lib/cart/cart-context";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -51,6 +53,8 @@ function TestsPageContent() {
   );
   const [sort, setSort] = useState<SortOption>("popular");
   const [showSort, setShowSort] = useState(false);
+
+  const { addItem, isInCart } = useCart();
 
   useEffect(() => {
     if (categoryParam && categories.includes(categoryParam as TestCategory)) {
@@ -329,16 +333,33 @@ function TestsPageContent() {
                         </Link>
                       </Button>
                       <Button
-                        className="flex-1 rounded-xl h-11 font-medium bg-teal text-white hover:bg-teal/90 shadow-sm shadow-teal/15"
-                        onClick={() =>
-                          toast.success(`${test.name} added to cart`, {
-                            description: `$${test.price.toFixed(2)}`,
-                            action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
-                          })
-                        }
+                        className={`flex-1 rounded-xl h-11 font-medium shadow-sm ${
+                          isInCart(test.id)
+                            ? "bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-500/15"
+                            : "bg-teal text-white hover:bg-teal/90 shadow-teal/15"
+                        }`}
+                        onClick={() => {
+                          if (!isInCart(test.id)) {
+                            addItem({ testId: test.id, name: test.name, price: test.price, slug: test.slug });
+                            toast.success(`${test.name} added to cart`, {
+                              description: `$${test.price.toFixed(2)}`,
+                              action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
+                            });
+                          }
+                        }}
+                        disabled={isInCart(test.id)}
                       >
-                        <ShoppingCart className="mr-1.5 h-3.5 w-3.5" />
-                        Add to Cart
+                        {isInCart(test.id) ? (
+                          <>
+                            <Check className="mr-1.5 h-3.5 w-3.5" />
+                            In Cart
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingCart className="mr-1.5 h-3.5 w-3.5" />
+                            Add to Cart
+                          </>
+                        )}
                       </Button>
                     </div>
                   </div>

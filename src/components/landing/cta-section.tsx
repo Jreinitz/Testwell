@@ -45,13 +45,14 @@ export function CTASection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-8 tracking-tight">
-            Stop waiting.
+            Your health data.
             <br />
-            <span className="text-gradient-hero italic">Start testing.</span>
+            <span className="text-gradient-hero italic">Your terms.</span>
           </h2>
           <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-            You choose the tests. You walk into the lab. You get the results.
-            No doctor visit. No insurance. No $200 surprise bills.
+            Pick the tests you need, walk into Quest or Labcorp, and get
+            physician-reviewed results in days. No doctor visit. No insurance.
+            No surprise bills.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -61,7 +62,7 @@ export function CTASection() {
               asChild
             >
               <Link href="/tests">
-                Order Your Labs <ArrowRight className="ml-2 h-5 w-5" />
+                Get Started <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button

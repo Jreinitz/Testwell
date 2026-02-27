@@ -2,15 +2,18 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Droplets, ShoppingCart } from "lucide-react";
+import { ArrowRight, Check, Droplets, ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { tests, getSavingsPercent } from "@/lib/data/tests";
+import { useCart } from "@/lib/cart/cart-context";
 
 const popularTests = tests.slice(0, 6);
 
 export function PopularTests() {
+  const { addItem, isInCart } = useCart();
+
   return (
     <section className="py-28 lg:py-40 bg-slate-50 relative noise-overlay overflow-hidden">
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-teal/[0.03] rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4" />
@@ -28,10 +31,10 @@ export function PopularTests() {
               Popular Tests
             </p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-4">
-              Our most <span className="text-gradient italic">ordered</span> tests
+              Most <span className="text-gradient italic">popular</span> tests
             </h2>
             <p className="text-lg text-muted-foreground max-w-xl">
-              Same CLIA-certified labs. Same analysis. Up to 80% less.
+              The same tests your doctor would order — at a fraction of the price.
             </p>
           </div>
           <Button
@@ -118,16 +121,33 @@ export function PopularTests() {
                     </Link>
                   </Button>
                   <Button
-                    className="flex-1 rounded-xl h-11 font-medium bg-teal text-white hover:bg-teal/90 shadow-sm shadow-teal/15"
-                    onClick={() =>
-                      toast.success(`${test.name} added to cart`, {
-                        description: `$${test.price.toFixed(2)}`,
-                        action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
-                      })
-                    }
+                    className={`flex-1 rounded-xl h-11 font-medium shadow-sm ${
+                      isInCart(test.id)
+                        ? "bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-500/15"
+                        : "bg-teal text-white hover:bg-teal/90 shadow-teal/15"
+                    }`}
+                    onClick={() => {
+                      if (!isInCart(test.id)) {
+                        addItem({ testId: test.id, name: test.name, price: test.price, slug: test.slug });
+                        toast.success(`${test.name} added to cart`, {
+                          description: `$${test.price.toFixed(2)}`,
+                          action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
+                        });
+                      }
+                    }}
+                    disabled={isInCart(test.id)}
                   >
-                    <ShoppingCart className="mr-1.5 h-3.5 w-3.5" />
-                    Add to Cart
+                    {isInCart(test.id) ? (
+                      <>
+                        <Check className="mr-1.5 h-3.5 w-3.5" />
+                        In Cart
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingCart className="mr-1.5 h-3.5 w-3.5" />
+                        Add to Cart
+                      </>
+                    )}
                   </Button>
                 </div>
               </div>

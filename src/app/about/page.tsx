@@ -64,10 +64,9 @@ export default function AboutPage() {
               <span className="text-gradient italic">simple</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              We started TestWell because ordering a basic blood test shouldn&apos;t
-              require a doctor&apos;s appointment, an insurance pre-auth, or a
-              surprise $800 bill. It should be as easy as ordering anything else
-              online — and a fraction of the price.
+              We started TestWell because a routine blood test shouldn&apos;t
+              cost $500 or require three appointments. We use the same labs
+              and the same physicians — we just took out the middlemen.
             </p>
           </motion.div>
         </div>
@@ -89,14 +88,16 @@ export default function AboutPage() {
                 <p>
                   In the US, a basic metabolic panel can cost anywhere from $35 to
                   $500+ depending on where you go and whether you have insurance.
-                  That&apos;s not a healthcare system — it&apos;s a pricing maze.
+                  That&apos;s not transparency — it&apos;s a pricing maze.
                 </p>
                 <p>
-                  TestWell partners with the same CLIA-certified laboratories used
-                  by hospitals and clinics — Quest Diagnostics and Labcorp — but
-                  eliminates the middlemen, the markups, and the bureaucracy. Every
-                  order is reviewed by a licensed physician. Every result is
-                  delivered digitally in 1–3 business days.
+                  We didn&apos;t build a new lab. We built a better way to access
+                  the ones that already exist. TestWell partners with Quest
+                  Diagnostics and Labcorp — the same CLIA-certified labs used by
+                  hospitals and clinics — but eliminates the middlemen, the
+                  markups, and the bureaucracy. Every order is reviewed by a
+                  licensed physician. Every result is delivered digitally in
+                  1–3 business days.
                 </p>
                 <p>
                   We believe that understanding your own body shouldn&apos;t be a

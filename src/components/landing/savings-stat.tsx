@@ -71,8 +71,8 @@ export function SavingsStat() {
               average savings per test
             </p>
             <p className="text-lg text-muted-foreground max-w-md leading-relaxed mb-8">
-              Same CLIA-certified labs. Same board-certified analysis.
-              A fraction of the cost.
+              Same labs your doctor uses. Same certified analysis.
+              Just without the markup.
             </p>
 
             <div className="flex items-center gap-5 flex-wrap">

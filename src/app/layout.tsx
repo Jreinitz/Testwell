@@ -7,6 +7,8 @@ import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { PageTransition } from "@/components/layout/page-transition";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { Toaster } from "sonner";
+import { AuthProvider } from "@/lib/supabase/auth-provider";
+import { CartProvider } from "@/lib/cart/cart-context";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -73,23 +75,27 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        <ScrollProgress />
-        <Navbar />
-        <main className="min-h-screen">
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <Footer />
-        <ScrollToTop />
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: "white",
-              border: "1px solid hsl(var(--border))",
-              borderRadius: "0.75rem",
-            },
-          }}
-        />
+        <AuthProvider>
+        <CartProvider>
+          <ScrollProgress />
+          <Navbar />
+          <main className="min-h-screen">
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+          <ScrollToTop />
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "white",
+                border: "1px solid hsl(var(--border))",
+                borderRadius: "0.75rem",
+              },
+            }}
+          />
+        </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

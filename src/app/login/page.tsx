@@ -1,24 +1,61 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowLeft, Eye, EyeOff } from "lucide-react"
+import type React from "react";
+import { useState, Suspense } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { toast } from "sonner";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/account";
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsLoading(false)
-  }
+    e.preventDefault();
+    setIsLoading(true);
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      toast.error(error.message);
+      setIsLoading(false);
+      return;
+    }
+
+    toast.success("Welcome back!");
+
+    if (searchParams.get("redirect")) {
+      router.push(redirect);
+    } else {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", (await supabase.auth.getUser()).data.user!.id)
+        .single();
+
+      router.push(
+        profile?.role === "admin"
+          ? "/admin"
+          : profile?.role === "provider"
+            ? "/provider"
+            : "/account"
+      );
+    }
+    router.refresh();
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50/40 to-background flex flex-col">
@@ -40,20 +77,35 @@ export default function LoginPage() {
           className="w-full max-w-sm"
         >
           <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center justify-center gap-2 mb-6">
-              <Image src="/logo-mark.svg" alt="TestWell" width={28} height={34} />
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center gap-2 mb-6"
+            >
+              <Image
+                src="/logo-mark.svg"
+                alt="TestWell"
+                width={28}
+                height={34}
+              />
               <span className="text-2xl font-bold text-foreground">
                 Test<span className="text-teal">Well</span>
               </span>
             </Link>
-            <h1 className="text-2xl font-bold text-foreground mb-2">Welcome back</h1>
-            <p className="text-muted-foreground">Log in to view your results and orders</p>
+            <h1 className="text-2xl font-bold text-foreground mb-2">
+              Welcome back
+            </h1>
+            <p className="text-muted-foreground">
+              Log in to view your results and orders
+            </p>
           </div>
 
           <div className="bg-white border border-border/40 rounded-2xl p-6 shadow-lg shadow-black/[0.03]">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-foreground mb-2"
+                >
                   Email
                 </label>
                 <input
@@ -68,7 +120,10 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-foreground mb-2"
+                >
                   Password
                 </label>
                 <div className="relative">
@@ -86,7 +141,11 @@ export default function LoginPage() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showPassword ? (
+                      <EyeOff className="w-5 h-5" />
+                    ) : (
+                      <Eye className="w-5 h-5" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -97,7 +156,9 @@ export default function LoginPage() {
                     type="checkbox"
                     className="w-4 h-4 rounded border-border text-teal focus:ring-teal accent-teal"
                   />
-                  <span className="text-sm text-muted-foreground">Remember me</span>
+                  <span className="text-sm text-muted-foreground">
+                    Remember me
+                  </span>
                 </label>
                 <a href="#" className="text-sm text-teal hover:underline">
                   Forgot password?
@@ -116,7 +177,10 @@ export default function LoginPage() {
             <div className="mt-6 text-center">
               <p className="text-muted-foreground text-sm">
                 Don&apos;t have an account?{" "}
-                <Link href="/signup" className="text-teal hover:underline font-medium">
+                <Link
+                  href="/signup"
+                  className="text-teal hover:underline font-medium"
+                >
                   Create one
                 </Link>
               </p>
@@ -125,5 +189,13 @@ export default function LoginPage() {
         </motion.div>
       </main>
     </div>
-  )
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
+  );
 }

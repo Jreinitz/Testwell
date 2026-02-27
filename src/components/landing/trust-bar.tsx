@@ -44,10 +44,10 @@ function AnimatedNumber({
 }
 
 const stats = [
-  { value: 10000, suffix: "+", label: "Patients served", prefix: "" },
-  { value: 4000, suffix: "+", label: "Lab locations nationwide", prefix: "" },
-  { value: 100, suffix: "+", label: "Tests available", prefix: "" },
-  { value: 80, suffix: "%", label: "Average savings", prefix: "Up to " },
+  { value: 10000, suffix: "+", label: "Patients", prefix: "" },
+  { value: 4000, suffix: "+", label: "Lab locations", prefix: "" },
+  { value: 100, suffix: "+", label: "Tests", prefix: "" },
+  { value: 80, suffix: "%", label: "Savings", prefix: "Up to " },
 ];
 
 export function TrustBar() {
@@ -66,7 +66,7 @@ export function TrustBar() {
           transition={{ duration: 0.6 }}
           className="text-center text-sm text-slate-500 uppercase tracking-[0.2em] font-medium mb-14"
         >
-          Trusted by thousands across Florida & Texas
+          Join 10,000+ patients saving on lab work
         </motion.p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-0">

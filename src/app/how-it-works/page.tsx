@@ -35,7 +35,7 @@ const steps = [
     icon: UserCheck,
     title: "A licensed physician reviews your order",
     description:
-      "Every order is reviewed by a board-certified physician licensed in your state. This step is included free — no extra fees, no delays. Most orders are approved within 2 hours.",
+      "A licensed physician reviews and approves your order — included free with every test. Most orders are approved within 2 hours.",
     highlights: [
       "Board-certified physicians",
       "Included free with every order",
@@ -48,7 +48,7 @@ const steps = [
     icon: MapPin,
     title: "Walk into any Quest or Labcorp location",
     description:
-      "After approval, you'll receive a lab requisition. Bring it to any Quest Diagnostics or Labcorp location near you. No appointment needed — most visits take under 15 minutes.",
+      "You'll receive a lab requisition by email. Bring it to any Quest or Labcorp near you — no appointment needed. Most visits take under 15 minutes.",
     highlights: [
       "4,000+ lab locations",
       "No appointment needed",
@@ -284,13 +284,11 @@ export default function HowItWorksPage() {
               How It Works
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-5">
-              Lab testing made{" "}
-              <span className="text-gradient italic">simple</span>
+              How it{" "}
+              <span className="text-gradient italic">works</span>
             </h1>
             <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-              Skip the doctor&apos;s office and insurance hassle. Order lab tests
-              online, visit a lab near you, and get physician-reviewed results in
-              days — not weeks.
+              Order online. Walk into a lab. Get results in days.
             </p>
           </motion.div>
         </div>

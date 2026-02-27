@@ -7,7 +7,7 @@ export const faqs: FAQ[] = [
   {
     question: "Do I need a doctor's order?",
     answer:
-      "No. TestWell's network of licensed physicians reviews and authorizes every lab test order. You simply choose your tests, and our physicians handle the rest — no office visit, no referral, no waiting.",
+      "No. A licensed physician reviews every order automatically — it's included free. No office visit, no referral, no extra steps.",
   },
   {
     question: "How long do results take?",
@@ -22,7 +22,7 @@ export const faqs: FAQ[] = [
   {
     question: "How do I find a lab near me?",
     answer:
-      "After placing your order, you'll receive a lab requisition with a list of nearby Quest Diagnostics and Labcorp locations. With over 4,000 locations across Florida and Texas, there's almost certainly one within a few miles of you. Most accept walk-ins — no appointment needed.",
+      "After you order, you'll get a lab requisition with nearby Quest and Labcorp locations. With 4,000+ locations in Florida and Texas, there's almost always one nearby. Walk in anytime — no appointment needed.",
   },
   {
     question: "Is my data secure?",
@@ -32,7 +32,7 @@ export const faqs: FAQ[] = [
   {
     question: "Do you accept insurance?",
     answer:
-      "TestWell operates on a direct-pay model — no insurance needed. Our prices are already lower than most insurance copays for lab work. We accept all major credit cards, debit cards, and HSA/FSA cards.",
+      "We're cash-pay only — no insurance needed. Our prices are already lower than most insurance copays. We accept credit cards, debit cards, and HSA/FSA cards.",
   },
   {
     question: "Can I use my HSA or FSA?",
@@ -42,6 +42,6 @@ export const faqs: FAQ[] = [
   {
     question: "What happens after I order?",
     answer:
-      "After checkout, a licensed physician reviews and authorizes your order (typically within 2 hours). You'll receive an email with your lab requisition and a list of nearby Quest or Labcorp locations. Walk in, get your blood drawn (usually under 15 minutes), and your results will be delivered to your secure portal within 1–3 business days.",
+      "A physician reviews your order (usually within 2 hours). You'll get an email with your lab requisition and nearby lab locations. Walk in, get your blood drawn (under 15 minutes), and check your results online in 1–3 business days.",
   },
 ];

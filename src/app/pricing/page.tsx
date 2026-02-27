@@ -19,6 +19,7 @@ import {
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useCart } from "@/lib/cart/cart-context";
 import { tests, getSavingsPercent, type LabTest } from "@/lib/data/tests";
 
 const bundles = [
@@ -73,6 +74,8 @@ export default function PricingPage() {
     const testwell = selectedTests.reduce((s, t) => s + t.price, 0);
     return { hospital, questDirect, testwell };
   }, [selectedTests]);
+
+  const { addItem } = useCart();
 
   const toggleTest = (id: string) => {
     setSelectedTestIds((prev) =>
@@ -281,6 +284,9 @@ export default function PricingPage() {
                   <Button
                     className="bg-teal text-white hover:bg-teal/90 rounded-xl h-12 px-8 font-semibold shadow-md shadow-teal/15"
                     onClick={() => {
+                      selectedTests.forEach((test) => {
+                        addItem({ testId: test.id, name: test.name, price: test.price, slug: test.slug });
+                      });
                       toast.success(
                         `${selectedTests.length} test${selectedTests.length > 1 ? "s" : ""} added to cart`,
                         {
@@ -337,19 +343,19 @@ export default function PricingPage() {
                 icon: CreditCard,
                 title: "No membership fees",
                 description:
-                  "No subscriptions or monthly charges. Pay per test — only when you need it.",
+                  "Pay only when you test. No subscriptions, no monthly charges.",
               },
               {
                 icon: UserCheck,
                 title: "No physician fees",
                 description:
-                  "The $6+ physician review fee charged by Quest/Labcorp Direct? Included free with every TestWell order.",
+                  "The physician review fee others charge separately? It's included free.",
               },
               {
                 icon: Receipt,
                 title: "No surprise bills",
                 description:
-                  "The price you see is the price you pay. No insurance claims, no EOBs, no surprises.",
+                  "The price you see is the price you pay. Period.",
               },
             ].map((item, i) => (
               <motion.div
@@ -470,12 +476,15 @@ export default function PricingPage() {
                     </div>
                     <Button
                       className="w-full bg-teal text-white hover:bg-teal/90 rounded-xl h-11 font-medium"
-                      onClick={() =>
+                      onClick={() => {
+                        bundleTests.forEach((test) => {
+                          addItem({ testId: test.id, name: test.name, price: test.price, slug: test.slug });
+                        });
                         toast.success(`${bundle.name} bundle added to cart`, {
                           description: `$${bundle.bundlePrice.toFixed(2)} — ${bundleTests.length} tests`,
                           action: { label: "View Cart", onClick: () => window.location.href = "/checkout" },
-                        })
-                      }
+                        });
+                      }}
                     >
                       Add Bundle to Cart
                     </Button>
