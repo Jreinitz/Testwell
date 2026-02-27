@@ -20,7 +20,7 @@ async function fetchUserMetrics(supabase: ReturnType<typeof getSupabase>) {
     ]);
 
     const users = authResult.data?.users || [];
-    const total = authResult.data?.total ?? users.length;
+    const total = (authResult.data && "total" in authResult.data ? authResult.data.total : undefined) ?? users.length;
     const newThisWeek = users.filter((u) => u.created_at >= oneWeekAgo).length;
     const newThisMonth = users.filter((u) => u.created_at >= oneMonthAgo).length;
 
