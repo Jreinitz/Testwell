@@ -1,20 +1,30 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+let _supabase: SupabaseClient | null = null;
+function getSupabase() {
+  if (!_supabase) {
+    _supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+  }
+  return _supabase;
+}
 
-const API_URL = process.env.FULLSCRIPT_API_URL!;
-const CLIENT_ID = process.env.FULLSCRIPT_CLIENT_ID!;
-const CLIENT_SECRET = process.env.FULLSCRIPT_CLIENT_SECRET!;
-const PRACTITIONER_ID = process.env.FULLSCRIPT_PRACTITIONER_ID!;
+function env(key: string): string {
+  const val = process.env[key];
+  if (!val) throw new Error(`Missing env var: ${key}`);
+  return val;
+}
 
 async function getAccessToken(): Promise<string> {
+  const supabase = getSupabase();
+  const practitionerId = env("FULLSCRIPT_PRACTITIONER_ID");
+
   const { data: tokenRow } = await supabase
     .from("fullscript_tokens")
     .select("*")
-    .eq("practitioner_id", PRACTITIONER_ID)
+    .eq("practitioner_id", practitionerId)
     .single();
 
   if (!tokenRow) {
@@ -28,13 +38,13 @@ async function getAccessToken(): Promise<string> {
     return tokenRow.access_token;
   }
 
-  const refreshRes = await fetch(`${API_URL}/api/oauth/token`, {
+  const refreshRes = await fetch(`${env("FULLSCRIPT_API_URL")}/api/oauth/token`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       grant_type: "refresh_token",
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
+      client_id: env("FULLSCRIPT_CLIENT_ID"),
+      client_secret: env("FULLSCRIPT_CLIENT_SECRET"),
       refresh_token: tokenRow.refresh_token,
     }),
   });
@@ -58,7 +68,7 @@ async function getAccessToken(): Promise<string> {
       expires_at: newExpiresAt.toISOString(),
       updated_at: new Date().toISOString(),
     })
-    .eq("practitioner_id", PRACTITIONER_ID);
+    .eq("practitioner_id", practitionerId);
 
   return oauth.access_token;
 }
@@ -69,7 +79,7 @@ async function fsRequest(
 ): Promise<Response> {
   const token = await getAccessToken();
 
-  return fetch(`${API_URL}${path}`, {
+  return fetch(`${env("FULLSCRIPT_API_URL")}${path}`, {
     ...options,
     headers: {
       Authorization: `Bearer ${token}`,
