@@ -69,7 +69,7 @@ export function ValueProps() {
           className="bg-white/[0.04] backdrop-blur-xl rounded-2xl border border-white/[0.08] overflow-hidden shadow-2xl"
         >
           {/* Header */}
-          <div className="grid grid-cols-[1fr_100px_100px_100px] sm:grid-cols-[1fr_130px_130px_130px] border-b border-white/[0.06]">
+          <div className="grid grid-cols-[1fr_70px_70px_70px] sm:grid-cols-[1fr_130px_130px_130px] border-b border-white/[0.06]">
             <div className="p-5 sm:p-6">
               <span className="text-xs text-slate-500 uppercase tracking-widest font-medium">
                 Feature
@@ -78,7 +78,7 @@ export function ValueProps() {
             {competitors.map((c) => (
               <div
                 key={c.name}
-                className={`p-5 sm:p-6 text-center text-sm font-bold ${
+                className={`p-3 sm:p-6 text-center text-xs sm:text-sm font-bold ${
                   c.highlight
                     ? "text-teal bg-teal/[0.08]"
                     : "text-slate-400"
@@ -97,7 +97,7 @@ export function ValueProps() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 + fi * 0.04, duration: 0.4 }}
-              className={`grid grid-cols-[1fr_100px_100px_100px] sm:grid-cols-[1fr_130px_130px_130px] ${
+              className={`grid grid-cols-[1fr_70px_70px_70px] sm:grid-cols-[1fr_130px_130px_130px] ${
                 fi < features.length - 1
                   ? "border-b border-white/[0.04]"
                   : ""

@@ -58,7 +58,7 @@ export function CTASection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Button
               size="lg"
-              className="bg-teal hover:bg-teal/90 text-white text-lg px-12 h-16 rounded-xl shadow-xl shadow-teal/25 hover:shadow-2xl hover:shadow-teal/30 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
+              className="bg-teal hover:bg-teal/90 text-white text-base sm:text-lg px-8 sm:px-12 h-14 sm:h-16 rounded-xl shadow-xl shadow-teal/25 hover:shadow-2xl hover:shadow-teal/30 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
               asChild
             >
               <Link href="/tests">
@@ -68,7 +68,7 @@ export function CTASection() {
             <Button
               size="lg"
               variant="outline"
-              className="text-lg h-16 px-12 rounded-xl border-slate-600 text-slate-300 hover:bg-white/5 hover:text-white hover:border-slate-500 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
+              className="text-base sm:text-lg h-14 sm:h-16 px-8 sm:px-12 rounded-xl border-slate-600 text-slate-300 hover:bg-white/5 hover:text-white hover:border-slate-500 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
               asChild
             >
               <Link href="/pricing">See Pricing</Link>

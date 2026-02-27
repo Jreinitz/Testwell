@@ -63,7 +63,7 @@ export function SavingsStat() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-[8rem] sm:text-[10rem] lg:text-[12rem] font-bold text-gradient-hero leading-none mb-4"
+              className="text-[5rem] sm:text-[10rem] lg:text-[12rem] font-bold text-gradient-hero leading-none mb-4"
             >
               <AnimatedPercent value={80} />
             </motion.p>

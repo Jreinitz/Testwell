@@ -83,7 +83,7 @@ export function TrustBar() {
                   : ""
               }`}
             >
-              <p className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-3 tracking-tight">
+              <p className="text-3xl sm:text-5xl lg:text-7xl font-bold text-white mb-3 tracking-tight">
                 <AnimatedNumber
                   value={stat.value}
                   suffix={stat.suffix}

@@ -282,7 +282,7 @@ export function Hero() {
             </div>
 
             {/* Headline — cinematic word reveal */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-navy leading-[1.05] mb-8">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-navy leading-[1.05] mb-8">
               <span className="block overflow-hidden">
                 <motion.span
                   className="block"
@@ -310,7 +310,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ delay: 0.7, duration: 0.7 }}
-              className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-lg"
+              className="text-base sm:text-xl text-muted-foreground leading-relaxed mb-10 max-w-lg"
             >
               Order lab tests online, walk into Quest or Labcorp, and get
               physician-reviewed results in days — without a doctor&apos;s visit,
@@ -345,7 +345,7 @@ export function Hero() {
             </motion.div>
 
             {/* Trust signals — staggered fade */}
-            <div className="flex items-center gap-6 sm:gap-8 text-sm">
+            <div className="flex items-center gap-4 sm:gap-8 text-xs sm:text-sm">
               {[
                 "No referral needed",
                 "Physician reviewed",
