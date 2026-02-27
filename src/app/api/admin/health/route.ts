@@ -80,7 +80,7 @@ async function checkSupabaseAuth(): Promise<ServiceCheck> {
       service: "supabase_auth",
       status: "healthy",
       latency_ms,
-      message: `Connected — ${result.data.total} total user(s)`,
+      message: `Connected — ${(result.data && "total" in result.data ? result.data.total : result.data?.users?.length) ?? 0} total user(s)`,
       checked_at,
     };
   } catch (err) {

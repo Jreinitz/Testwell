@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
 
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
@@ -43,7 +45,7 @@ export async function GET(request: NextRequest) {
       new Date(oauth.created_at).getTime() + oauth.expires_in * 1000
     );
 
-    await supabase.from("fullscript_tokens").upsert(
+    await getSupabase().from("fullscript_tokens").upsert(
       {
         practitioner_id: oauth.resource_owner.id,
         access_token: oauth.access_token,
